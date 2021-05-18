@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<project name="Calculate" basedir="." default="junit">
+<project name="Calculate" basedir="." default="test">
     <!--    define    -->
     <property name="src" value="src"/>
 
@@ -50,6 +50,8 @@
 
     <target name="delete">
         <delete dir="${report.path}"/>
+    </target>
+    <target name="test" depends="junit">
     </target>
 
 </project>
