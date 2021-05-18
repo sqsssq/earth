@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<project name="Calculate" basedir="." default="junit">
+    <!--    define    -->
+    <property name="src" value="src"/>
+
+    <property name="src.path" value="src/com/company"/>
+    <property name="test.path" value="src/com/test"/>
+    <property name="build.path" value="buildx"/>
+    <property name="cal_jar" value="cal.jar"/>
+    <property name="lib.path" value="lib"/>
+    <property name="report.path" value="report"/>
+
+    <path id="compile.path">
+        <fileset dir="${lib.path}">
+            <include name="**/*.jar"/>
+        </fileset>
+        <pathelement path="${build.path}"/>
+    </path>
+
+    <target name="clean" description="clean">
+        <delete dir="${build.path}"/>
+    </target>
+
+    <target name="compile" description="compile">
+        <mkdir dir="${build.path}"/>
+        <javac srcdir="${src.path}" destdir="${build.path}" classpathref="compile.path"/>
+        <javac srcdir="${test.path}" destdir="${build.path}" classpathref="compile.path"/>
+    </target>
+
+    <target name="junit" depends="clean, compile">
+        <mkdir dir="${report.path}"/>
+        <junit printsummary="true" fork="true">
+            <formatter type="xml" usefile="true"/>
+            <classpath refid="compile.path"/>
+            <!--            <test name="com.test.CalculatorTest"/>-->
+            <batchtest fork="on" todir="${report.path}" haltonfailure="no">
+                <fileset dir="${build.path}">
+                    <include name="**/*Test.class"/>
+                </fileset>
+            </batchtest>
+        </junit>
+        <!-- 产生单元测试报表文档 -->
+        <junitreport todir="${report.path}">
+            <fileset dir="${report.path}">
+                <include name="TEST-*.xml"/>
+            </fileset>
+            <report format="frames" todir="${report.path}"/>
+        </junitreport>
+    </target>
+
+    <target name="delete">
+        <delete dir="${report.path}"/>
+    </target>
+
+</project>
