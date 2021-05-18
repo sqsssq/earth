@@ -1,7 +1,7 @@
 package com.company;
 
 public class Calculator {
-    private static int result;    //静态变量，用于存储运行结果
+    private static int result;
     public void add(int n)
     {
         result=result+n;
@@ -9,7 +9,7 @@ public class Calculator {
 
     public void substract(int n)
     {
-        result=result-1;        //Bug：正确的应该是result=result-n;
+        result=result-1;
     }
 
     public void multiply(int n)
@@ -29,12 +29,12 @@ public class Calculator {
 
     public void squareRoot(int n)
     {
-        for(int i = 0; i < n; ++i);    //Bug:死循环
+        for(int i = 0; i < n; ++i);
     }
 
     public void clear()
     {
-        result=0;  //将结果清零
+        result=0;
     }
 
     public int getResult()
